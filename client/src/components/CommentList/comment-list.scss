@@ -1,0 +1,144 @@
+@import '../../styles/vars';
+.comments {
+  padding: 15px 0;
+  &__item {
+    position: relative;
+    padding-bottom: 5px;
+    &:not(:last-child) {
+      margin-bottom: 15px;
+    }
+    &:hover {
+      .comments__item-close {
+        opacity: 1;
+      }
+    }
+  }
+  &__item-close {
+    position: absolute;
+    cursor: pointer;
+    width: 15px;
+    height: 15px;
+    padding: 1px;
+    border-radius: 50%;
+    top: 0;
+    right: 0;
+    opacity: 0;
+    transition: background-color 0.2s ease, opacity 0.2s ease;
+    &:hover {
+      background-color: $light-red;
+    }
+  }
+  &__icon-close {
+    width: 100%;
+    height: 100%;
+  }
+  &__body {
+    display: flex;
+    margin-bottom: 8px;
+  }
+  &__parent-avatar {
+    display: block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 10px;
+  }
+  &__avatar {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  &__info {
+    flex: 1;
+  }
+  &__author-nik {
+    display: inline-block;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 16px;
+    color: $main;
+    margin-bottom: 5px;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  &__content {
+    font-size: 13px;
+    line-height: 16px;
+    padding-right: 80px;
+  }
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &__date {
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 13px;
+  }
+  &__like {
+    cursor: pointer;
+    display: flex;
+    align-items: start;
+    padding: 2px;
+    transition: background-color 0.2s ease;
+    border-radius: 5px;
+    &:hover {
+      background-color: $light-red;
+    }
+  }
+  &__icon-like {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+  }
+  &__count-like {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+  }
+  &__more {
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    margin-bottom: 15px;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  &__send {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &__send-avatar {
+    width: 44px;
+    height: 44px;
+    object-fit: cover;
+    margin-right: 10px;
+    border-radius: 50%;
+  }
+  &__send-input {
+    flex: 1;
+    margin-right: 10px;
+  }
+  &__send-btn {
+    cursor: pointer;
+    width: 28px;
+    height: 28px;
+    border-radius: 2px;
+    padding: 2px;
+    transition: background-color 0.2s ease;
+    &:hover {
+      background-color: $light-red;
+    }
+  }
+  &__icon-send {
+    width: 100%;
+    height: 100%;
+  }
+}

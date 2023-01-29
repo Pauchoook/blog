@@ -1,0 +1,25 @@
+@import '../../styles/vars';
+
+.sort {
+  display: flex;
+  align-items: center;
+  column-gap: 15px;
+  &__item {
+    cursor: pointer;
+    padding: 10px 25px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: #1b1716;
+    border-radius: 20px;
+    transition: color 0.2s ease, background-color 0.2s ease;
+    &.active {
+      background-color: $main;
+      color: white;
+    }
+    &:hover {
+      background-color: $main;
+      color: white;
+    }
+  }
+}

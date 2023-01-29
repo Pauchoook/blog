@@ -1,0 +1,55 @@
+@import '../../styles/vars';
+.blog {
+  margin-bottom: 30px;
+  &__body {
+    position: relative;
+    height: 150px;
+    background-color: $main-dark;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    color: white;
+  }
+  &__title {
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 39px;
+  }
+  &__search {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    border-radius: 10px;
+    bottom: -20px;
+    padding-right: 20px;
+    max-width: 770px;
+  }
+  &__search-btn {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    margin-right: 10px;
+    transition: background-color .2s ease;
+    &:hover {
+      background-color: $light-red;
+    }
+  }
+  &__search-icon {
+    width: 20px;
+    height: 20px;
+  }
+  &__search-input {
+    font-size: 14px;
+    width: 300px;
+    font-size: 20px;
+    line-height: 24px;
+    color: black;
+  }
+}

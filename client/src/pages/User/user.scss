@@ -1,0 +1,38 @@
+.user {
+  padding: 50px 0;
+  &__container {
+    display: flex;
+    column-gap: 60px;
+  }
+  &__left {
+
+  }
+  &__avatar {
+    width: 335px;
+    height: 335px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    object-fit: cover;
+  }
+  &__nikname {
+    font-size: 32px;
+    text-align: center;
+    margin-bottom: 5px;
+  }
+  &__count-subscribers {
+    font-size: 16px;
+    text-align: center;
+  }
+  &__info-list {
+    margin-bottom: 20px;
+  }
+  &__info-item {
+    font-size: 16px;
+    &:not(:last-child) {
+      margin-bottom: 15px;
+    }
+  }
+  &__about {
+    font-size: 16px;
+  }
+}

@@ -1,0 +1,10 @@
+@import '../../styles/vars';
+
+.post {
+  padding-bottom: 50px;
+  display: block;
+  &__container {
+    display: flex;
+    justify-content: space-between;
+  }
+}
