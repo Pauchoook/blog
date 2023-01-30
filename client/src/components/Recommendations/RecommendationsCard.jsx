@@ -10,7 +10,7 @@ export const RecommendationsCard = ({ post }) => {
 
   return (
     <div className="recommendations__card">
-      <Link className="recommendations__link">
+      <Link to={'/'} className="recommendations__link">
         <img src={image} alt="Фотография" className="recommendations__img" />
         <div className="recommendations__link-circle">
           <img src={arrow} className="recommendations__link-arrow" />

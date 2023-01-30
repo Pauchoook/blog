@@ -5,7 +5,7 @@ import { fetchAll } from '../../store/reducers/actionsPost';
 import './post-list.scss';
 import { postSlice } from '../../store/reducers/postSlice';
 
-export const PostList = ({title}) => {
+export const PostList = ({title, typeId}) => {
   const { posts, isLoading, count } = useSelector((state) => state.post);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(4);
@@ -14,11 +14,11 @@ export const PostList = ({title}) => {
 
   useEffect(() => {
     dispatch(clearPosts());
-  }, [title]);
+  }, [title, typeId]);
 
   useEffect(() => {
-    dispatch(fetchAll({ page, limit, title }));
-  }, [page, limit, title]);
+    dispatch(fetchAll({ page, limit, title, typeId }));
+  }, [page, limit, title, typeId]);
 
   return (
     <div className="post-list">

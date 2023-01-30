@@ -9,7 +9,7 @@ import { useState } from 'react';
 import { postApi } from '../../services/postService';
 import { useSelector } from 'react-redux';
 import { subscribeApi } from '../../services/subscribeService';
-import { useEffect } from 'react';
+import { USER } from '../../utils/path';
 
 export const PostInfo = ({ post }) => {
   const { user } = useSelector((state) => state.user);
@@ -37,14 +37,14 @@ export const PostInfo = ({ post }) => {
       <span className="post-info__type">{type}</span>
       <h1 className="post-info__title">{post.title}</h1>
       <div className="post-info__header">
-        <Link className="post-info__user">
+        <Link to={USER + `/${author.id}`} className="post-info__user">
           <img src={avatar} alt="Аватарка" className="post-info__user-avatar" />
           <div className="post-info__user-info">
             <h5 className="post-info__user-nik">{author.nikname}</h5>
             <span className="post-info__user-date">{date}</span>
           </div>
         </Link>
-        {!isSubscription && 
+        {(!isSubscription && user.id !== author.id) && 
           <button onClick={handlerSubscribe} className="post-info__user-subscribe">
             Подписаться
           </button>

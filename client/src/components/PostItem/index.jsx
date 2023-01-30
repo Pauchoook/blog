@@ -3,13 +3,13 @@ import arrow from '../../assets/arrow.svg';
 import avatarImg from '../../assets/avatar.jpg';
 import './post-item.scss';
 import { Link } from 'react-router-dom';
-import { POST } from '../../utils/path';
+import { POST, USER } from '../../utils/path';
 
 export const PostItem = ({ post }) => {
   const author = post.user
   const date = post.createdAt.slice(0, 10).split('-').reverse().join('.');
   const avatar = author.avatar ? `http://localhost:5000/${author.avatar}` : avatarImg;
-  const type = post.type.name
+  const type = post.type.name;
 
   return (
     <div className="post-item">
@@ -24,13 +24,13 @@ export const PostItem = ({ post }) => {
       <p className="post-item__content">
         {post.body}
       </p>
-      <div className="post-item__author">
+      <Link to={USER + `/${author.id}`} className="post-item__author">
         <img src={avatar} alt="Аватарка" className="post-item__author-avatar" />
         <div className="post-item__author-info">
           <h5 className="post-item__author-nik">{author.nikname}</h5>
           <span className="post-item__date">{date}</span>
         </div>
-      </div>
+      </Link>
     </div>
   );
 };

@@ -15,11 +15,10 @@ export const Wall = () => {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(4);
   const [title, setTitle] = useState('');
-  const observerEl = useRef();
+  const [typeId, setTypeId] = useState(1);
   const dispatch = useDispatch();
   const { clearPosts } = postSlice.actions;
 
-  // useObserver(observerEl, page < count / limit, isLoading, () => setPage(page + 1));
 
   const handlerSearch = (title) => {
     dispatch(clearPosts());
@@ -30,10 +29,8 @@ export const Wall = () => {
     <div className="wall">
       <div className="container wall__container">
         <Blog handlerSearch={handlerSearch} />
-        <Sort />
-        <PostList title={title} />
-        {/* {posts && posts.map((post) => <PostItem post={post} key={post.id} />)}
-        <div ref={observerEl} style={{ height: 20 }} /> */}
+        <Sort typeId={typeId} setTypeId={setTypeId} />
+        <PostList title={title} typeId={typeId} />
       </div>
     </div>
   );

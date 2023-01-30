@@ -1,3 +1,4 @@
+@import '../../styles/vars';
 .modal {
   &__overlay {
     position: fixed;
@@ -9,25 +10,26 @@
     bottom: 0;
     left: 0;
     background-color: rgb(0, 0, 0, 0.3);
+    z-index: 100;
   }
   &__window {
     position: relative;
-    background-color: white;
-    padding: 20px 25px;
-    border-radius: 10px;
-    max-width: 500px;
+    background-color: #F5ECE2;
+    padding: 30px;
+    border-radius: 20px;
+    max-width: 570px;
     width: 100%;
   }
   &__close {
     position: absolute;
     cursor: pointer;
-    padding: 2px;
+    height: 20px;
     top: 15px;
     right: 15px;
     border-radius: 50%;
     transition: background-color .2s ease;
     &:hover {
-      background-color: #eee;
+      background-color: $main-dark;
     }
   }
   &__close-icon {
@@ -38,28 +40,84 @@
     font-size: 24px;
     margin-bottom: 20px;
   }
-  &__form {
-    display: block;
-  }
-  &__input {
-    width: 100%;
-    margin-bottom: 15px;
-    &--descr {
-      height: 100px;
+  &__btn {
+    cursor: pointer;
+    padding: 5px 20px;
+    font-size: 15px;
+    line-height: 18px;
+    color: white;
+    background-color: $main-dark;
+    border: 1px solid $main-dark;
+    border-radius: 20px;
+    transition: color .2s ease, background-color .2s ease;
+    &.stroke {
+      color: $main-dark;
+      background-color: transparent;
+      &:hover {
+        color: white;
+        background-color: $main-dark;
+      }
+    }
+    &.error {
+      border-color: red;
+      color: red;
+    }
+    &:hover {
+      color: $main-dark;
+      background-color: transparent;
     }
   }
   &__file {
     display: none;
   }
   &__file-item {
-    display: block;
-    font-size: 16px;
-    margin-bottom: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    width: 135px;
+    height: 85px;
+    border-radius: 10px;
+    border: 1px solid $main-dark;
   }
-  &__form-btn {
+  &__file-icon {
+    width: 34px;
+    height: 34px;
+    fill: $main-dark;
+  }
+  &__file-img {
     width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  &__item {
     &:not(:last-child) {
       margin-bottom: 10px;
     }
+  }
+  &__item-flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 5px;
+    transition: border-color .2s ease;
+    &:hover {
+      border-color: $light-red;
+    }
+  }
+  &__name {
+    color: $main;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  &__nav {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 20px;
   }
 }

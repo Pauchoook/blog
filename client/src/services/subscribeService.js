@@ -11,10 +11,26 @@ export const subscribeApi = createApi({
         body: user
       })
     }),
+    subscribe: build.mutation({
+      query: (userId, subscriberId) => ({
+        url: `/owner?ownerId=${userId}&subscriberId=${subscriberId}`,
+        method: 'DELETE',
+      })
+    }),
+    fetchSubscribers: build.query({
+      query: (ownerId) => ({
+        url: `/subscriber?ownerId=${ownerId}`
+      })
+    }),
     fetchOwner: build.query({
       query: (subscriberId) => ({
-        url: `/owner/subscription?subscriberId=${subscriberId}`
+        url: `/owner/${subscriberId}`
       })
-    })
+    }),
+    fetchOwners: build.query({
+      query: (subscriberId) => ({
+        url: `/owner?subscriberId=${subscriberId}`
+      })
+    }),
   })
 })

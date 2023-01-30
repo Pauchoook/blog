@@ -1,10 +1,8 @@
 import React from 'react';
-import { useState } from 'react';
 import { typeApi } from '../../services/typeService';
 import './sort.scss';
 
-export const Sort = () => {
-  const [active, setAcitve] = useState(1);
+export const Sort = ({typeId, setTypeId}) => {
   const { data: types, isLoading } = typeApi.useFetchTypesQuery();
 
   return (
@@ -13,8 +11,8 @@ export const Sort = () => {
         types.map((type) => 
           <li 
             key={type.id}
-            className={type.id === active ? 'sort__item active' : 'sort__item'}
-            onClick={() => setAcitve(type.id)}
+            className={type.id === typeId ? 'sort__item active' : 'sort__item'}
+            onClick={() => setTypeId(type.id)}
           >
             {type.name}
           </li>

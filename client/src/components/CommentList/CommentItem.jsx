@@ -5,6 +5,7 @@ import avatarImg from '../../assets/avatar.jpg';
 import iconClose from '../../assets/close.svg';
 import iconHeart from '../../assets/heart.svg';
 import { commentApi } from '../../services/commentService';
+import { USER } from '../../utils/path';
 
 export const CommentItem = ({ comment }) => {
   const { user } = useSelector((state) => state.user);
@@ -29,11 +30,11 @@ export const CommentItem = ({ comment }) => {
         </button>
       }
       <div className="comments__body">
-        <Link className="comments__parent-avatar">
+        <Link to={USER + `/${author.id}`} className="comments__parent-avatar">
           <img src={author.avata ? 'http://localhost:5000/' + author.avatar : avatarImg} className="comments__avatar" />
         </Link>
         <div className="comments__info">
-          <Link className="comments__author-nik">{author.nikname}</Link>
+          <Link to={USER + `/${author.id}`} className="comments__author-nik">{author.nikname}</Link>
           <p className="comments__content">{comment.comment}</p>
         </div>
       </div>

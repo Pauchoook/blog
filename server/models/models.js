@@ -13,7 +13,7 @@ const User = sequelize.define('user', {
   years: { type: DataTypes.INTEGER },
   profession: { type: DataTypes.STRING, defaultValue: 'Читатель' },
   about: { type: DataTypes.STRING },
-  // countOwners: {type: DataTypes.INTEGER, defaultValue: 0}
+  countOwners: {type: DataTypes.INTEGER, defaultValue: 0}
 });
 
 const Post = sequelize.define('post', {

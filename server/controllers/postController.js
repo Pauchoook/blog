@@ -22,7 +22,7 @@ class PostController {
 
   async getAll(req, res, next) {
     try {
-      let {title, limit, page} = req.query;
+      let {title, limit, page, typeId} = req.query;
       let posts;
 
       page = page || 1;
@@ -32,6 +32,8 @@ class PostController {
 
       if (title) {
         posts = await Post.findAndCountAll({where: {title}, limit, offset, include: [User, Type]});
+      } else if (typeId && typeId > 1) {
+        posts = await Post.findAndCountAll({where: {typeId}, limit, offset, include: [User, Type]});
       } else {
         posts = await Post.findAndCountAll({limit, offset, include: [User, Type]});
       }

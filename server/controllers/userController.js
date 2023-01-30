@@ -5,8 +5,8 @@ const uuid = require('uuid');
 const path = require('path');
 const ApiError = require('../error/ApiError');
 
-const generateJwt = (id, email, nikname, avatar) => {
-  return jwt.sign({ id, email, nikname, avatar }, process.env.SECRET_KEY, { expiresIn: '24h' });
+const generateJwt = (id, email, nikname, avatar, countSubscribers) => {
+  return jwt.sign({ id, email, nikname, avatar, countSubscribers }, process.env.SECRET_KEY, { expiresIn: '24h' });
 };
 
 class UserController {
@@ -33,7 +33,7 @@ class UserController {
       const hashPassword = await bcrypt.hash(password, 5);
       // avatar.mv(path.resolve(__dirname, '..', 'static', fileName));
       const user = await User.create({ email, password: hashPassword, nikname });
-      const token = generateJwt(user.id, user.email, user.nikname, user.avatar);
+      const token = generateJwt(user.id, user.email, user.nikname, user.avatar, user.countSubscribers);
 
       return res.json({ token });
     } catch (e) {
@@ -55,7 +55,7 @@ class UserController {
         return next(ApiError.internal('Пароль неверный'));
       }
 
-      const token = generateJwt(candidate.id, candidate.email, candidate.nikname, candidate.avatar);
+      const token = generateJwt(candidate.id, candidate.email, candidate.nikname, candidate.avatar, candidate.countSubscribers);
       return res.json({ token });
     } catch (e) {
       next(ApiError.badRequest(e.message));
@@ -75,7 +75,7 @@ class UserController {
 
   async check(req, res, next) {
     try {
-      const token = generateJwt(req.user.id, req.user.email, req.user.nikname, req.user.avatar);
+      const token = generateJwt(req.user.id, req.user.email, req.user.nikname, req.user.avatar, req.user.countSubscribers);
       return res.json({ token });
     } catch (e) {
       next(ApiError.badRequest(e.message));

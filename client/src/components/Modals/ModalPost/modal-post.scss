@@ -1,0 +1,25 @@
+@import '../../../styles/vars';
+.modal-post {
+  &__form {
+  }
+  &__input {
+    width: 100%;
+    margin-bottom: 10px;
+    &--descr {
+      height: 100px;
+    }
+  }
+  &__spoller {
+    margin-bottom: 10px;
+  }
+  &__spoller-item {
+    cursor: pointer;
+    padding: 5px;
+    width: 150px;
+    transition: color .2s ease, background-color .2s ease;
+    &:hover {
+      background-color: $main-dark;
+      color: white;
+    }
+  }
+}
