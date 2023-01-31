@@ -5,9 +5,9 @@ export const postApi = createApi({
   baseQuery: fetchBaseQuery({baseUrl: 'http://localhost:5000/api'}),
   tagTypes: ['Posts', 'Post'],
   endpoints: (build) => ({
-    fetchAll: build.query({
+    fetchPosts: build.query({
       query: (q) => ({
-        url: `/post?page=${q.page}&limit=${q.limit}` + (q.title && `&title=${q.title}`)
+        url: `/post?page=${q.page}&limit=${q.limit}` + (q.title ? `&title=${q.title}` : '') + (q.typeId ? `&typeId=${q.typeId}` : '')
       })
     }),
     fetchPost: build.query({

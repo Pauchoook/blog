@@ -12,7 +12,7 @@ import { ModalOwners } from '../../components/Modals/ModalOwners';
 export const Profile = () => {
   const [showModalPost, setShowModalPost] = useState(false);
   const [showModalSubscribers, setShowModalSubscribers] = useState(false);
-  const [showModalOwners, setShowModalOweners] = useState(true);
+  const [showModalOwners, setShowModalOweners] = useState(false);
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const avatar = user.avatar ? `http://localhost:5000/${user.avatar}` : avatarImg;

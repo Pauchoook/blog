@@ -21,7 +21,7 @@ export const PostInfo = ({ post }) => {
   const author = post.user;
   const type = post.type.name;
   const date = post.createdAt.slice(0, 10).split('-').reverse().join('.');
-  const avatar = author.avatar ? `http://localhost:5000/${author.avatar}` : avatarImg;
+  const avatar = author?.avatar ? `http://localhost:5000/${author.avatar}` : avatarImg;
   const image = `http://localhost:5000/${post.img}`;
 
   const handlerLike = () => {
@@ -54,10 +54,7 @@ export const PostInfo = ({ post }) => {
         <img src={image} alt="Фотография" className="post-info__img" />
       </div>
       <p className="post-info__content">
-        Tips, Tricks, and Strategies for a Winning Experience" is a blog for all gaming enthusiasts. Whether you're a
-        beginner or a pro, this blog will provide you with the latest tips, tricks, and strategies to help you level up
-        your gaming skills. From PC to console games, we'll cover it all, and provide you with the knowledge you need to
-        dominate in the virtual world.
+        {post.body}
       </p>
       <ul className="post-info__nav">
         <li onClick={handlerLike} className="post-info__nav-item">

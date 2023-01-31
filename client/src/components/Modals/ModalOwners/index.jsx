@@ -7,11 +7,11 @@ import '../modal.scss';
 
 export const ModalOwners = ({ onHide, subscriberId }) => {
   const { data: owners } = subscribeApi.useFetchOwnersQuery(subscriberId);
+  const [unsubscribe, {}] = subscribeApi.useUnubscribeMutation();
 
-  console.log(owners)
-
-  const onSubscribe = (e) => {
+  const handlerUnsubscribe = (e, ownerId) => {
     e.preventDefault();
+    unsubscribe({userId: ownerId, subscriberId});
   };
 
   return (
@@ -28,12 +28,13 @@ export const ModalOwners = ({ onHide, subscriberId }) => {
                 <li key={owner.id} className="modal__item">
                   <Link to={USER + `/${owner.user.id}`} className="modal__item-flex">
                     <span className="modal__name">{owner.user.nikname}</span>
-                    <button onClick={onSubscribe} className="modal__btn">
+                    <button type='button' onClick={(e) => handlerUnsubscribe(e, owner.userId)} className="modal__btn">
                       Отписаться
                     </button>
                   </Link>
                 </li>
               ))}
+            {(owners && owners.length === 0) && <p className="modal__content">Список пуст</p>}
           </ul>
         </div>
       </div>

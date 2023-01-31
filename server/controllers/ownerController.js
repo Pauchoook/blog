@@ -1,10 +1,13 @@
 const ApiError = require('../error/ApiError');
 const { User, Owner, Subscriber } = require('../models/models');
 
-const updatedSubscriber = async (ownerId) => {
-  const user = await User.findOne({where: {id: ownerId}});
-  const newUser = await User.update({countSubscribers: user.countSubscribers - 1}, {where:{id: ownerId}});
-}
+const updatedOwnerSubscriber = async (ownerId, subsriberId) => {
+  const owner = await User.findOne({ where: { id: ownerId } });
+  const subscriber = await User.findOne({ where: { id: subsriberId } });
+
+  const newOwner = await User.update({ countSubscribers: owner.countSubscribers - 1 }, { where: { id: ownerId } });
+  const newSubscriber = await User.update({ countOwners: subscriber.countOwners - 1 }, { where: { id: subsriberId } });
+};
 
 class OwnerController {
   async findOwners(req, res, next) {
@@ -25,7 +28,7 @@ class OwnerController {
       if (owner) {
         return res.json(true);
       }
-      
+
       return res.json(false);
     } catch (e) {
       next(ApiError.badRequest(e.message));
@@ -34,11 +37,13 @@ class OwnerController {
 
   async unsubscribe(req, res, next) {
     try {
-      const { ownerId, subscriberId } = req.query;
-      const deleteOwner = await Owner.destroy({ where: { subscriberId, userId: ownerId }});
-      const deleteSubscriber = await Subscriber.destroy({ where: { ownerId, userId: subscriberId } })
+      const { userId, subscriberId } = req.body;
 
-      updatedSubscriber(ownerId);
+      const deleteOwner = await Owner.destroy({ where: { subscriberId, userId } });
+      const deleteSubscriber = await Subscriber.destroy({ where: { ownerId: userId, userId: subscriberId } });
+
+      // убавляем кол-во подписчиков у owner и кол-во подписок у subscriber
+      updatedOwnerSubscriber(userId, subscriberId);
       return res.json(deleteOwner);
     } catch (e) {
       next(ApiError.badRequest(e.message));

@@ -3,19 +3,23 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const subscribeApi = createApi({
   reducerPath: 'subscribeApi',
   baseQuery: fetchBaseQuery({baseUrl: 'http://localhost:5000/api'}),
+  tagTypes: ['subscribers', 'owners'],
   endpoints: (build) => ({
     subscribe: build.mutation({
-      query: (user) => ({
+      query: (body) => ({
         url: `/subscriber`,
         method: 'POST',
-        body: user
-      })
+        body
+      }),
+      invalidatesTags: ['owners']
     }),
-    subscribe: build.mutation({
-      query: (userId, subscriberId) => ({
-        url: `/owner?ownerId=${userId}&subscriberId=${subscriberId}`,
+    unubscribe: build.mutation({
+      query: (body) => ({
+        url: `/owner`,
         method: 'DELETE',
-      })
+        body
+      }),
+      invalidatesTags: ['owners']
     }),
     fetchSubscribers: build.query({
       query: (ownerId) => ({
@@ -30,7 +34,8 @@ export const subscribeApi = createApi({
     fetchOwners: build.query({
       query: (subscriberId) => ({
         url: `/owner?subscriberId=${subscriberId}`
-      })
+      }),
+      providesTags: res => ['owners']
     }),
   })
 })

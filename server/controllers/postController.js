@@ -30,8 +30,10 @@ class PostController {
 
       let offset = page * limit - limit;
 
-      if (title) {
+      if (title && typeId == 1) {
         posts = await Post.findAndCountAll({where: {title}, limit, offset, include: [User, Type]});
+      } else if (title && typeId > 1) {
+        posts = await Post.findAndCountAll({where: {title, typeId}, limit, offset, include: [User, Type]});
       } else if (typeId && typeId > 1) {
         posts = await Post.findAndCountAll({where: {typeId}, limit, offset, include: [User, Type]});
       } else {

@@ -25,6 +25,7 @@ export const ModalSubscribers = ({ onHide, ownerId }) => {
                   </Link>
                 </li>
               ))}
+            {(subscribers && subscribers.length === 0) && <p className="modal__content">Список пуст</p>}
           </ul>
         </div>
       </div>

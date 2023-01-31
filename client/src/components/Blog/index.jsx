@@ -4,7 +4,7 @@ import { useState } from 'react';
 import iconSearch from '../../assets/search.svg';
 import './blog.scss';
 
-export const Blog = ({ handlerSearch }) => {
+export const Blog = ({ setTitle }) => {
   const [value, setValue] = useState('');
   const [isFocus, setFocus] = useState(true);
 
@@ -16,13 +16,12 @@ export const Blog = ({ handlerSearch }) => {
   }, [value, isFocus]);
 
   const onEnter = (e) => {
-    console.log(isFocus);
     if (e.key === 'Enter' && isFocus) handlerClick();
   };
 
   const handlerClick = () => {
     if (value) {
-      handlerSearch(value);
+      setTitle(value);
       setValue('');
     }
   };
