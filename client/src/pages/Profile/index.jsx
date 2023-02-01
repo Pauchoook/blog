@@ -8,6 +8,9 @@ import iconCamera from '../../assets/photo-camera.svg';
 import { ModalSubscribers } from '../../components/Modals/ModalSubscribers';
 import './profile.scss';
 import { ModalOwners } from '../../components/Modals/ModalOwners';
+import { userApi } from '../../services/userService';
+import { Link } from 'react-router-dom';
+import { MY_POSTS } from '../../utils/path';
 
 export const Profile = () => {
   const [showModalPost, setShowModalPost] = useState(false);
@@ -60,8 +63,8 @@ export const Profile = () => {
           </div>
           <ul className="profile__nav">
             <li onClick={() => setShowModalSubscribers(true)} className="profile__nav-item">Мои подписчики: {user.countSubscribers}</li>
-            <li onClick={() => setShowModalOweners(true)} className="profile__nav-item">Мои подписки</li>
-            <li className="profile__nav-item">Мои посты</li>
+            <li onClick={() => setShowModalOweners(true)} className="profile__nav-item">Мои подписки: {user.countOwners}</li>
+            <li className="profile__nav-item"><Link to={MY_POSTS + `/${user.id}`}>Мои посты</Link></li>
             <li onClick={() => setShowModalPost(true)} className="profile__nav-item">Добавить пост</li>
           </ul>
         </div>

@@ -5,3 +5,4 @@ export const AUTH = '/auth';
 export const REGISTRATION = '/registration';
 export const LOGIN = '/login';
 export const USER = '/user';
+export const MY_POSTS = '/myposts';

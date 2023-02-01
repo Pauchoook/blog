@@ -22,7 +22,7 @@ class PostController {
 
   async getAll(req, res, next) {
     try {
-      let {title, limit, page, typeId} = req.query;
+      let {title, limit, page, typeId, userId} = req.query;
       let posts;
 
       page = page || 1;
@@ -36,6 +36,8 @@ class PostController {
         posts = await Post.findAndCountAll({where: {title, typeId}, limit, offset, include: [User, Type]});
       } else if (typeId && typeId > 1) {
         posts = await Post.findAndCountAll({where: {typeId}, limit, offset, include: [User, Type]});
+      } else if (userId) {
+        posts = await Post.findAndCountAll({where: {userId}, limit, offset, include: Type});
       } else {
         posts = await Post.findAndCountAll({limit, offset, include: [User, Type]});
       }
@@ -60,8 +62,21 @@ class PostController {
   async update(req, res, next) {
     try {
       const post = req.body;
-      const newPost = await Post.update({...post}, {where:{id: post.id}});
-      return res.json(newPost)
+      const {img} = req.files;
+
+      const editPost = {
+        ...post
+      }
+
+      if (img) {
+        let filename = uuid.v4() + '.jpg';
+        img.mv(path.resolve(__dirname, '..', 'static', filename));
+
+        editPost.img = filename;
+      }
+
+      const newPost = await Post.update({...editPost}, {where:{id: post.id}});
+      return res.json()
     } catch(e) {
       next(ApiError.badRequest(e.message));
     }

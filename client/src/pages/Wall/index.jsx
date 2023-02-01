@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
-import { Blog } from '../../components/Blog';
+import { MainBlock } from '../../components/MainBlock';
 import './wall.scss';
 import { Sort } from '../../components/Sort';
 import { PostList } from '../../components/PostList';
@@ -12,7 +12,7 @@ export const Wall = () => {
   return (
     <div className="wall">
       <div className="container wall__container">
-        <Blog setTitle={setTitle} />
+        <MainBlock title="Все посты" setTitle={setTitle} />
         <Sort setTitle={setTitle} typeId={typeId} setTypeId={setTypeId} />
         <PostList title={title} typeId={typeId} />
       </div>

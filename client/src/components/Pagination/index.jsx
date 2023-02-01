@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactPaginate from 'react-paginate';
-import { postSlice } from '../../store/reducers/postSlice';
 import './pagination.scss';
 
 export const Pagination = ({totalLength, limit, handlerChangePage}) => {

@@ -5,8 +5,10 @@ const uuid = require('uuid');
 const path = require('path');
 const ApiError = require('../error/ApiError');
 
-const generateJwt = (id, email, nikname, avatar, countSubscribers) => {
-  return jwt.sign({ id, email, nikname, avatar, countSubscribers }, process.env.SECRET_KEY, { expiresIn: '24h' });
+const generateJwt = (id, email, nikname, avatar, countSubscribers, countOwners) => {
+  return jwt.sign({ id, email, nikname, avatar, countSubscribers, countOwners }, process.env.SECRET_KEY, {
+    expiresIn: '24h',
+  });
 };
 
 class UserController {
@@ -33,14 +35,21 @@ class UserController {
       const hashPassword = await bcrypt.hash(password, 5);
       // avatar.mv(path.resolve(__dirname, '..', 'static', fileName));
       const user = await User.create({ email, password: hashPassword, nikname });
-      const token = generateJwt(user.id, user.email, user.nikname, user.avatar, user.countSubscribers);
+      const token = generateJwt(
+        user.id,
+        user.email,
+        user.nikname,
+        user.avatar,
+        user.countSubscribers,
+        user.countOwners
+      );
 
       return res.json({ token });
     } catch (e) {
       next(ApiError.badRequest(e.message));
     }
   }
-  
+
   async login(req, res, next) {
     try {
       const { email, password } = req.body;
@@ -55,7 +64,14 @@ class UserController {
         return next(ApiError.internal('Пароль неверный'));
       }
 
-      const token = generateJwt(candidate.id, candidate.email, candidate.nikname, candidate.avatar, candidate.countSubscribers);
+      const token = generateJwt(
+        candidate.id,
+        candidate.email,
+        candidate.nikname,
+        candidate.avatar,
+        candidate.countSubscribers,
+        candidate.countOwners,
+      );
       return res.json({ token });
     } catch (e) {
       next(ApiError.badRequest(e.message));
@@ -75,7 +91,16 @@ class UserController {
 
   async check(req, res, next) {
     try {
-      const token = generateJwt(req.user.id, req.user.email, req.user.nikname, req.user.avatar, req.user.countSubscribers);
+      const {countSubscribers, countOwners} = await User.findOne({where: {id: req.user.id}});
+
+      const token = generateJwt(
+        req.user.id,
+        req.user.email,
+        req.user.nikname,
+        req.user.avatar,
+        countSubscribers,
+        countOwners
+      );
       return res.json({ token });
     } catch (e) {
       next(ApiError.badRequest(e.message));
@@ -91,17 +116,24 @@ class UserController {
 
   async updateAvatar(req, res, next) {
     try {
-      const {id} = req.params;
-      const {avatar} = req.files;
+      const { id } = req.params;
+      const { avatar } = req.files;
       const filename = uuid.v4() + '.jpg';
 
       avatar.mv(path.resolve(__dirname, '..', 'static', filename));
 
-      const user = await User.findOne({where: {id}});
-      const newUser = await User.update({avatar: filename}, {where:{id}});
-      const token = generateJwt(user.id, user.email, user.nikname, filename);
+      const user = await User.findOne({ where: { id } });
+      const newUser = await User.update({ avatar: filename }, { where: { id } });
+      const token = generateJwt(
+        user.id,
+        user.email,
+        user.nikname,
+        filename,
+        user.countSubscribers,
+        user.countOwners,
+      );
 
-      return res.json({avatar: filename, token});
+      return res.json({ avatar: filename, token });
     } catch (e) {
       next(ApiError.badRequest(e.message));
     }
