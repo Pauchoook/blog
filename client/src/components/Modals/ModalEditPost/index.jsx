@@ -109,7 +109,7 @@ export const ModalEditPost = ({ onHide, post }) => {
               id="body"
               placeholder="Описание"
               className="input modal-post__input modal-post__input--descr"
-            ></textarea>
+            />
             <div className="spoller modal-post__spoller">
               <button
                 type="button"

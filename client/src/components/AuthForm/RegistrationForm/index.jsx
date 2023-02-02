@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import eye from '../../../assets/eye.svg';
 import eyeClose from '../../../assets/eye-close.svg';
@@ -13,7 +13,7 @@ import { WALL } from '../../../utils/path';
 export const RegistrationForm = ({ handlerSwitch }) => {
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
-  const { error } = useSelector((state) => state.user);
+  const { error, isAuth } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const {
     register,
@@ -24,9 +24,14 @@ export const RegistrationForm = ({ handlerSwitch }) => {
   const handlerRegistration = (data) => {
     if (isValid) {
       dispatch(registration(data));
-      navigate(WALL);
     }
   };
+
+  useEffect(() => {
+    if (isAuth) {
+      navigate(WALL);
+    }
+  }, [isAuth]);
 
   return (
     <form onSubmit={handleSubmit(handlerRegistration)} className="auth-form">

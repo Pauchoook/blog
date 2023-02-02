@@ -8,7 +8,7 @@ import { postSlice } from '../../store/reducers/postSlice';
 
 export const PostList = ({ title, typeId }) => {
   const {page, limit} = useSelector(state => state.post);
-  const {data: posts, refetch, isLoading} = postApi.useFetchPostsQuery({page, limit, title, typeId})
+  const {data: posts, refetch, isLoading} = postApi.useFetchPostsQuery({page, limit, title, typeId});
   const {changePage} = postSlice.actions;
   const dispatch = useDispatch();
 

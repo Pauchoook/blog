@@ -14,7 +14,7 @@ import { useEffect } from 'react';
 export const LoginForm = ({ handlerSwitch }) => {
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
-  const { error } = useSelector((state) => state.user);
+  const { error, isAuth } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const {
     register,
@@ -22,11 +22,17 @@ export const LoginForm = ({ handlerSwitch }) => {
     handleSubmit,
   } = useForm();
 
-  const handlerLogin = (data) => {
+  const handlerLogin = async (data) => {
     if (isValid) {
       dispatch(login(data));
     }
   };
+
+  useEffect(() => {
+    if (isAuth) {
+      navigate(WALL);
+    }
+  }, [isAuth])
 
   return (
     <form onSubmit={handleSubmit(handlerLogin)} className="auth-form">

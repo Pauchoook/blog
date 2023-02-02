@@ -1,6 +1,27 @@
 @import '../../styles/vars';
 .post-item {
   grid-column: 4 span;
+  &:first-child {
+    grid-column: 12 span;
+    display: flex;
+    justify-content: space-between;
+    .post-item__link {
+      width: 670px;
+      height: 400px;
+    }
+    .post-item__body {
+      max-width: 470px;
+      width: 100%;
+    }
+    .post-item__title {
+      font-size: 24px;
+      line-height: 28px;
+    }
+    .post-item__content {
+      -webkit-line-clamp: 6;
+      line-clamp: 6;
+    }
+  }
   &__link {
     position: relative;
     display: block;
@@ -70,7 +91,6 @@
     margin-bottom: 10px;
   }
   &__content {
-    font-weight: 500;
     font-size: 15px;
     line-height: 18px;
     display: -moz-box;

@@ -1,36 +1,17 @@
 import React from 'react';
-import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import avatarImg from '../../assets/avatar.jpg';
-import { ModalPost } from '../../components/Modals/ModalPost';
 import { updateAvatar } from '../../store/reducers/actionsUser';
 import iconCamera from '../../assets/photo-camera.svg';
-import { ModalSubscribers } from '../../components/Modals/ModalSubscribers';
 import './profile.scss';
-import { ModalOwners } from '../../components/Modals/ModalOwners';
-import { userApi } from '../../services/userService';
-import { Link } from 'react-router-dom';
-import { MY_POSTS } from '../../utils/path';
+import { ProfileNav } from '../../components/ProfileNav';
+import { ProfileEdit } from '../../components/ProfileEdit';
 
 export const Profile = () => {
-  const [showModalPost, setShowModalPost] = useState(false);
-  const [showModalSubscribers, setShowModalSubscribers] = useState(false);
-  const [showModalOwners, setShowModalOweners] = useState(false);
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const avatar = user.avatar ? `http://localhost:5000/${user.avatar}` : avatarImg;
+  const avatar = `http://localhost:5000/${user.avatar}`;
 
-  const onHideModalPost = () => {
-    setShowModalPost(false);
-  };
-
-  const onHideModalSubscribers = () => {
-    setShowModalSubscribers(false);
-  }
-
-  const onHideModalOwners = () => {
-    setShowModalOweners(false);
-  }
+  console.log(user);
 
   const changeAvatar = (e) => {
     const formData = new FormData();
@@ -49,28 +30,21 @@ export const Profile = () => {
       <div className="container">
         <div className="profile__header">
           <div className="profile__soc-info">
-            <input type="file" onChange={changeAvatar} id='avatar' className="profile__input-avatar" />
-            <label htmlFor='avatar' className="profile__parent-avatar">
+            <input type="file" onChange={changeAvatar} id="avatar" className="profile__input-avatar" />
+            <label htmlFor="avatar" className="profile__parent-avatar">
               <img src={avatar} alt="Аватарка" className="profile__avatar" />
               <div className="profile__photo-camera">
                 <img src={iconCamera} className="profile__photo-camera-img" />
               </div>
             </label>
             <div className="profile__soc-info-right">
-              <span className="profile__email">{user.email}</span>
               <span className="profile__nik">{user.nikname}</span>
+              <span className="profile__email">{user.email}</span>
             </div>
           </div>
-          <ul className="profile__nav">
-            <li onClick={() => setShowModalSubscribers(true)} className="profile__nav-item">Мои подписчики: {user.countSubscribers}</li>
-            <li onClick={() => setShowModalOweners(true)} className="profile__nav-item">Мои подписки: {user.countOwners}</li>
-            <li className="profile__nav-item"><Link to={MY_POSTS + `/${user.id}`}>Мои посты</Link></li>
-            <li onClick={() => setShowModalPost(true)} className="profile__nav-item">Добавить пост</li>
-          </ul>
+          <ProfileNav user={user} />
         </div>
-        {showModalPost && <ModalPost onHide={onHideModalPost} />}
-        {showModalSubscribers && <ModalSubscribers ownerId={user.id} onHide={onHideModalSubscribers} />}
-        {showModalOwners && <ModalOwners subscriberId={user.id} onHide={onHideModalOwners} />}
+        <ProfileEdit user={user} />
       </div>
     </div>
   );

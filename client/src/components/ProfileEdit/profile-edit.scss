@@ -1,0 +1,72 @@
+@import '../../styles/vars';
+
+.profile-edit {
+  padding-top: 50px;
+  &__body {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    row-gap: 30px;
+    margin-bottom: 20px;
+    &--date {
+      cursor: pointer;
+      opacity: 0;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+  }
+  &__item {
+    flex: 0 1 calc(50% - 50px);
+    &--descr {
+      flex-basis: 100%;
+    }
+  }
+  &__label {
+    display: block;
+    font-size: 16px;
+    line-height: 18px;
+    margin-bottom: 10px;
+  }
+  &__input {
+    width: 100%;
+    &--descr {
+      height: 130px;
+    }
+  }
+  &__error {
+    display: block;
+    font-size: 16px;
+    line-height: 18px;
+    margin-bottom: 10px;
+    color: red;
+  }
+  &__date {
+    position: relative;
+    font-size: 16px;
+    line-height: 18px;
+    &:hover {
+      color: $main;
+      text-decoration: underline;
+    }
+  }
+  &__save {
+    cursor: pointer;
+    display: block;
+    margin-left: auto;
+    padding: 15px 25px;
+    border-radius: 20px;
+    font-size: 16px;
+    line-height: 18px;
+    color: white;
+    border: 1px solid $main;
+    background-color: $main;
+    transition: color 0.2s ease, background-color 0.2s ease;
+    &:hover {
+      color: $main;
+      background-color: transparent;
+    }
+  }
+}

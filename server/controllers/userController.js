@@ -5,10 +5,27 @@ const uuid = require('uuid');
 const path = require('path');
 const ApiError = require('../error/ApiError');
 
-const generateJwt = (id, email, nikname, avatar, countSubscribers, countOwners) => {
-  return jwt.sign({ id, email, nikname, avatar, countSubscribers, countOwners }, process.env.SECRET_KEY, {
-    expiresIn: '24h',
-  });
+const generateJwt = (
+  id,
+  email,
+  nikname,
+  avatar,
+  countSubscribers,
+  countOwners,
+  firstName,
+  lastName,
+  date,
+  city,
+  profession,
+  about,
+) => {
+  return jwt.sign(
+    { id, email, nikname, avatar, countSubscribers, countOwners, firstName, lastName, date, city, profession, about },
+    process.env.SECRET_KEY,
+    {
+      expiresIn: '24h',
+    },
+  );
 };
 
 class UserController {
@@ -41,7 +58,13 @@ class UserController {
         user.nikname,
         user.avatar,
         user.countSubscribers,
-        user.countOwners
+        user.countOwners,
+        user.firstName,
+        user.lastName,
+        user.date,
+        user.city,
+        user.profession,
+        user.about,
       );
 
       return res.json({ token });
@@ -71,6 +94,12 @@ class UserController {
         candidate.avatar,
         candidate.countSubscribers,
         candidate.countOwners,
+        candidate.firstName,
+        candidate.lastName,
+        candidate.date,
+        candidate.city,
+        candidate.profession,
+        candidate.about,
       );
       return res.json({ token });
     } catch (e) {
@@ -91,7 +120,7 @@ class UserController {
 
   async check(req, res, next) {
     try {
-      const {countSubscribers, countOwners} = await User.findOne({where: {id: req.user.id}});
+      const { countSubscribers, countOwners } = await User.findOne({ where: { id: req.user.id } });
 
       const token = generateJwt(
         req.user.id,
@@ -99,7 +128,13 @@ class UserController {
         req.user.nikname,
         req.user.avatar,
         countSubscribers,
-        countOwners
+        countOwners,
+        req.user.firstName,
+        req.user.lastName,
+        req.user.date,
+        req.user.city,
+        req.user.profession,
+        req.user.about,
       );
       return res.json({ token });
     } catch (e) {
@@ -111,6 +146,31 @@ class UserController {
     try {
     } catch (e) {
       console.log(e);
+    }
+  }
+
+  async updateUser(req, res, next) {
+    try {
+      const user = req.body;
+      const {avatar, countSubscribers, countOwners} = await User.findOne({ where: { id: user.id } });
+      const updateUser = User.update({ ...user }, { where: { id: user.id } });
+      const token = generateJwt(
+        user.id,
+        user.email,
+        user.nikname,
+        avatar,
+        countSubscribers,
+        countOwners,
+        user.firstName,
+        user.lastName,
+        user.date,
+        user.city,
+        user.profession,
+        user.about,
+      );
+      return res.json({token});
+    } catch (e) {
+      next(ApiError.badRequest(e.message));
     }
   }
 
@@ -131,6 +191,12 @@ class UserController {
         filename,
         user.countSubscribers,
         user.countOwners,
+        user.firstName,
+        user.lastName,
+        user.date,
+        user.city,
+        user.profession,
+        user.about,
       );
 
       return res.json({ avatar: filename, token });

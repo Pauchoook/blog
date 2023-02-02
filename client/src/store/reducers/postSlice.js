@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   page: 1,
-  limit: 3
+  limit: 4
 };
 
 export const postSlice = createSlice({

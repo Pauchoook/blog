@@ -7,6 +7,7 @@ import './user.scss';
 export const User = () => {
   const { id } = useParams();
   const { data: user, isLoading, error } = userApi.useFetchUserQuery(id);
+  const avatar = user && `http://localhost:5000/${user.avatar}`;
 
   if (isLoading) {
     return <h1>Loading</h1>;
@@ -14,23 +15,55 @@ export const User = () => {
 
   return (
     <div className="user">
-      <div className="container user__container">
-        <div className="user__left">
-          <img
-            src={user.avatar ? `http://localhost:5000/${user.avatar}` : avatar}
-            alt="Аватарка"
-            className="user__avatar"
-          />
-          <h1 className="user__nikname">{user.nikname}</h1>
-          <p className="user__count-subscribers">{`Подписчики: ${user.countSubscribers}`}</p>
+      <div className="container">
+        <div className="user__header">
+          <div className="user__left">
+            <div className="user__left-wrapper">
+              <img src={avatar} alt="Аватарка" className="user__avatar" />
+              <div className="user__left-info">
+                <span className="user__nik">{user.nikname}</span>
+                <span className="user__email">{user.email}</span>
+              </div>
+            </div>
+            <ul className="user__list">
+              <li className="user__list-item">Подписчики: {user.countSubscribers}</li>
+              <li className="user__list-item">Подписки: {user.countOwners}</li>
+            </ul>
+          </div>
         </div>
         <div className="user__info">
-          <ul className="user__info-list">
-            <li className="user__info-item">{user.lastName && `Имя: ${user.firstName}`}</li>
-            <li className="user__info-item">{user.lastName && `Фамилия: ${user.lastName}`}</li>
-            <li className="user__info-item">{user.years && `Лет: ${user.years}`}</li>
-          </ul>
-          <p className="user__about">{user.about && `О себе: ${user.about}`}</p>
+          {user.about && (
+            <div className="user__info-item">
+              <h3 className="user__info-title">Обо мне</h3>
+              <p className="user__info-content">{user.about}</p>
+            </div>
+          )}
+          {user.city && (
+            <div className="user__info-item">
+              <h3 className="user__info-title">Город</h3>
+              <p className="user__info-content">{user.city}</p>
+            </div>
+          )}
+          {user.date && (
+            <div className="user__info-item">
+              <h3 className="user__info-title">Дата рождения</h3>
+              <p className="user__info-content">{user.date}</p>
+            </div>
+          )}
+          {user.firstName && (
+            <div className="user__info-item">
+              <h3 className="user__info-title">Имя и Фамилия</h3>
+              <p className="user__info-content">
+                {user.firstName} {user.lastName}
+              </p>
+            </div>
+          )}
+          {user.profession && (
+            <div className="user__info-item">
+              <h3 className="user__info-title">Профессия</h3>
+              <p className="user__info-content">{user.profession}</p>
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -46,3 +46,12 @@ export const updateAvatar = createAsyncThunk(
     return data.avatar;
   }
 )
+
+export const updateUser = createAsyncThunk(
+  'user/updateUser',
+  async(user, thunkApi) => {
+    const {data} = await $host.put(`api/user`, user);
+    localStorage.setItem('token', data.token);
+    return jwt_decode(data.token);
+  }
+)

@@ -6,7 +6,7 @@ import './my-posts.scss';
 
 export const MyPosts = () => {
   const [title, setTitle] = useState('');
-  const [typeId, setTypeId] = useState(1);
+  const [typeId, setTypeId] = useState(0);
 
   return (
     <div className="my-posts">

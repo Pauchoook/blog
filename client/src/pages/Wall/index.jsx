@@ -7,7 +7,7 @@ import { PostList } from '../../components/PostList';
 
 export const Wall = () => {
   const [title, setTitle] = useState('');
-  const [typeId, setTypeId] = useState(1);
+  const [typeId, setTypeId] = useState(0);
 
   return (
     <div className="wall">

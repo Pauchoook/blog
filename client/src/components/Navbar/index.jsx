@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import logo from '../../assets/logo.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { userSlice } from '../../store/reducers/userSlice';
 import { AUTH, PROFILE, WALL } from '../../utils/path';
@@ -23,7 +24,7 @@ export const Navbar = () => {
     <header className="navbar">
       <div className="container navbar__container">
         <Link to={WALL} className="navbar__logo">
-          Блог
+          <img src={logo} alt="Логотип" className="navbar__logo-img" />
         </Link>
         {isAuth ? (
           <ul className="navbar__list">
