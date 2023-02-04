@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { USER } from '../../../utils/path';
 import '../modal.scss';
 
-export const ModalUsers = ({ onHide, ownerId }) => {
+export const ModalSubscribers = ({ onHide, ownerId, nikname }) => {
   const { data: subscribers } = subscribeApi.useFetchSubscribersQuery(ownerId);
 
   return (
@@ -15,12 +15,12 @@ export const ModalUsers = ({ onHide, ownerId }) => {
           <button onClick={onHide} className="modal__close">
             <img src={close} alt="" className="modal__close-icon" />
           </button>
-          <h3 className="modal__title">Мои подписчики</h3>
+          <h3 className="modal__title">{nikname ? `Подписчики "${nikname}"` : 'Мои подписчики'}</h3>
           <ul className="modal__list">
             {subscribers &&
               subscribers.map((subscriber) => (
                 <li key={subscriber.id} className="modal__item">
-                  <Link to={USER + `/${subscriber.user.id}`} className="modal__item-flex">
+                  <Link onClick={onHide} to={USER + `/${subscriber.user.id}`} className="modal__item-flex">
                     <span className="modal__name">{subscriber.user.nikname}</span>
                   </Link>
                 </li>

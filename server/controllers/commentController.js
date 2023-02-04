@@ -35,13 +35,6 @@ class CommentController {
       next(ApiError.badRequest(e.message));
     }
   }
-
-  async delete(req, res, next) {
-    try {
-    } catch (e) {
-      console.log(e);
-    }
-  }
 }
 
 module.exports = new CommentController();

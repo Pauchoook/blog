@@ -55,3 +55,12 @@ export const updateUser = createAsyncThunk(
     return jwt_decode(data.token);
   }
 )
+
+export const deleteUser = createAsyncThunk(
+  'user/deleteUser',
+  async(id, thunkAPi) => {
+    const {data} = await $host.delete(`api/user/${id}`);
+    localStorage.removeItem('token');
+    return data;
+  }
+)

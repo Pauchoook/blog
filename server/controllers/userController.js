@@ -1,4 +1,4 @@
-const { User } = require('../models/models');
+const { User, Post, Owner, Subscriber, Like, Comment } = require('../models/models');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const uuid = require('uuid');
@@ -142,17 +142,28 @@ class UserController {
     }
   }
 
-  async delete(req, res) {
+  async delete(req, res, next) {
     try {
+      const { id } = req.params;
+      await User.destroy({ where: { id } });
+      await Comment.destroy({ where: { userId: id } });
+      await Post.destroy({ where: { userId: id } });
+      await Owner.destroy({ where: { userId: id } });
+      await Owner.destroy({ where: { subscriberId: id } });
+      await Subscriber.destroy({ where: { userId: id } });
+      await Subscriber.destroy({ where: { ownerId: id } });
+      await Like.destroy({ where: { userId: id } });
+
+      return res.json('delete ok');
     } catch (e) {
-      console.log(e);
+      next(ApiError.badRequest(e.message));
     }
   }
 
   async updateUser(req, res, next) {
     try {
       const user = req.body;
-      const {avatar, countSubscribers, countOwners} = await User.findOne({ where: { id: user.id } });
+      const { avatar, countSubscribers, countOwners } = await User.findOne({ where: { id: user.id } });
       const updateUser = User.update({ ...user }, { where: { id: user.id } });
       const token = generateJwt(
         user.id,
@@ -168,7 +179,7 @@ class UserController {
         user.profession,
         user.about,
       );
-      return res.json({token});
+      return res.json({ token });
     } catch (e) {
       next(ApiError.badRequest(e.message));
     }

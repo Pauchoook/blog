@@ -11,7 +11,7 @@ export const PostItem = ({ post }) => {
   const type = post.type.name;
 
   return (
-    <div className={'post-item'}>
+    <div className='post-item'>
       <Link to={POST + `/${post.id}`} className="post-item__link">
         <img src={'http://localhost:5000/' + post.img} alt="Фотография" className="post-item__img" />
         <div className="post-item__link-circle">

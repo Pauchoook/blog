@@ -60,10 +60,10 @@ User.hasMany(Like);
 Like.belongsTo(User, {onDelete: 'cascade'});
 
 User.hasMany(Subscriber);
-Subscriber.belongsTo(User);
+Subscriber.belongsTo(User, {onDelete: 'cascade'});
 
 User.hasMany(Owner);
-Owner.belongsTo(User);
+Owner.belongsTo(User, {onDelete: 'cascade'});
 
 Post.hasMany(Comment);
 Comment.belongsTo(Post, {onDelete: 'cascade'});

@@ -20,10 +20,10 @@ class OwnerController {
     }
   }
 
-  async findOne(req, res, next) {
+  async isSubscribe(req, res, next) {
     try {
-      const { id } = req.params;
-      const owner = await Owner.findOne({ where: { subscriberId: id } });
+      const { subscriberId, ownerId } = req.query;
+      const owner = await Owner.findOne({ where: { subscriberId, userId: ownerId } });
 
       if (owner) {
         return res.json(true);

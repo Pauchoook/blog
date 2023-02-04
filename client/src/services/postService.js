@@ -11,7 +11,8 @@ export const postApi = createApi({
           `/post?page=${q.page}&limit=${q.limit}` +
           (q.title ? `&title=${q.title}` : '') +
           (q.typeId ? `&typeId=${q.typeId}` : '') +
-          (q.userId ? `&userId=${q.userId}` : '')
+          (q.userId ? `&userId=${q.userId}` : '') +
+          (q.order ? `&order=${q.order}` : '')
       }),
       providesTags: (res) => ['posts'],
     }),

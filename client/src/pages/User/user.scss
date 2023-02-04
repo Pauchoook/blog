@@ -10,12 +10,31 @@
     display: flex;
     align-items: center;
   }
+  &__parent-avatar {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-right: 20px;
+  }
   &__avatar {
     width: 185px;
     height: 185px;
     border-radius: 50%;
-    margin-right: 20px;
     object-fit: cover;
+    margin-bottom: 15px;
+  }
+  &__subscribe {
+    cursor: pointer;
+    padding: 15px 20px;
+    border: 1px solid $main;
+    border-radius: 20px;
+    background-color: $main;
+    color: white;
+    transition: color .2s ease, background-color .2s ease;
+    &:hover {
+      color: $main;
+      background-color: transparent;
+    }
   }
   &__nik {
     display: block;
@@ -44,5 +63,24 @@
     &:hover {
       text-decoration: underline;
     }
+  }
+  &__info {
+    padding-top: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    row-gap: 20px;
+  }
+  &__info-item {
+    flex: 0 1 calc(50% - 20px);
+  }
+  &__info-title {
+    font-size: 18px;
+    line-height: 24px;
+    margin-bottom: 10px;
+  }
+  &__info-content {
+    font-size: 16px;
+    line-height: 18px;
   }
 }

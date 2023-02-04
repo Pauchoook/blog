@@ -1,7 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import avatarImg from '../../assets/avatar.jpg';
 import iconClose from '../../assets/close.svg';
 import iconHeart from '../../assets/heart.svg';
 import { commentApi } from '../../services/commentService';
@@ -13,6 +12,7 @@ export const CommentItem = ({ comment }) => {
   const date = comment.createdAt.slice(0, 10).split('-').reverse().join('.');
   const [deleteComment, {}] = commentApi.useDeleteCommentMutation();
   const [likeComment, {}] = commentApi.useLikeCommentMutation();
+  const avatar = 'http://localhost:5000/' + author.avatar;
 
   const handlerDelete = () => {
     deleteComment(comment.id);
@@ -31,7 +31,7 @@ export const CommentItem = ({ comment }) => {
       }
       <div className="comments__body">
         <Link to={USER + `/${author.id}`} className="comments__parent-avatar">
-          <img src={author.avata ? 'http://localhost:5000/' + author.avatar : avatarImg} className="comments__avatar" />
+          <img src={avatar} className="comments__avatar" />
         </Link>
         <div className="comments__info">
           <Link to={USER + `/${author.id}`} className="comments__author-nik">{author.nikname}</Link>

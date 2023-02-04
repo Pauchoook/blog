@@ -1,9 +1,9 @@
 import React from 'react';
 import { useState } from 'react';
 import { MainBlock } from '../../components/MainBlock';
-import './wall.scss';
 import { Sort } from '../../components/Sort';
 import { PostList } from '../../components/PostList';
+import './wall.scss';
 
 export const Wall = () => {
   const [title, setTitle] = useState('');
@@ -11,7 +11,7 @@ export const Wall = () => {
 
   return (
     <div className="wall">
-      <div className="container wall__container">
+      <div className="container">
         <MainBlock title="Все посты" setTitle={setTitle} />
         <Sort setTitle={setTitle} typeId={typeId} setTypeId={setTypeId} />
         <PostList title={title} typeId={typeId} />

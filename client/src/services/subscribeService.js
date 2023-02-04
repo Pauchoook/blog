@@ -27,8 +27,8 @@ export const subscribeApi = createApi({
       })
     }),
     fetchOwner: build.query({
-      query: (subscriberId) => ({
-        url: `/owner/${subscriberId}`
+      query: ({subscriberId, ownerId}) => ({
+        url: `/owner/check?subscriberId=${subscriberId}&ownerId=${ownerId}`
       })
     }),
     fetchOwners: build.query({

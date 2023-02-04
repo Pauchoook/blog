@@ -12,13 +12,12 @@ import { subscribeApi } from '../../services/subscribeService';
 import { USER } from '../../utils/path';
 
 export const PostInfo = ({ post }) => {
-  const { user } = useSelector((state) => state.user);
+  const { user, isAuth } = useSelector((state) => state.user);
   const [showComments, setShowComments] = useState(false);
   const [likePost, {}] = postApi.useLikePostMutation();
-  const [subcribe, {}] = subscribeApi.useSubscribeMutation();
-  const { data: isSubscription } = subscribeApi.useFetchOwnerQuery(user.id);
-
+  const [subsribe, {}] = subscribeApi.useSubscribeMutation();
   const author = post.user;
+  const { data: isSubscription } = subscribeApi.useFetchOwnerQuery({subscriberId: user.id, ownerId: author.id});
   const type = post.type.name;
   const date = post.createdAt.slice(0, 10).split('-').reverse().join('.');
   const avatar = author?.avatar ? `http://localhost:5000/${author.avatar}` : avatarImg;
@@ -29,7 +28,7 @@ export const PostInfo = ({ post }) => {
   };
 
   const handlerSubscribe = () => {
-    subcribe({ userId: user.id, ownerId: author.id });
+    subsribe({ userId: user.id, ownerId: author.id });
   };
 
   return (
@@ -44,7 +43,7 @@ export const PostInfo = ({ post }) => {
             <span className="post-info__user-date">{date}</span>
           </div>
         </Link>
-        {(!isSubscription && user.id !== author.id) && 
+        {(isAuth && !isSubscription && user.id !== author.id) && 
           <button onClick={handlerSubscribe} className="post-info__user-subscribe">
             Подписаться
           </button>

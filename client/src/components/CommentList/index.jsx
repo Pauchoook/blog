@@ -30,7 +30,7 @@ export const CommentList = () => {
       {(!isLoading && comments.count > comments.rows.length) &&
         <button onClick={incrementLimit} className="comments__more">Показать ещё...</button>
       }
-      {isAuth && <CommentSend postId={id} userId={user.id} />}
+      {isAuth && <CommentSend postId={id} user={user} />}
     </div>
   );
 };

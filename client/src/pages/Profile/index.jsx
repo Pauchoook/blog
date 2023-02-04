@@ -2,16 +2,14 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateAvatar } from '../../store/reducers/actionsUser';
 import iconCamera from '../../assets/photo-camera.svg';
-import './profile.scss';
 import { ProfileNav } from '../../components/ProfileNav';
 import { ProfileEdit } from '../../components/ProfileEdit';
+import './profile.scss';
 
 export const Profile = () => {
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const avatar = `http://localhost:5000/${user.avatar}`;
-
-  console.log(user);
 
   const changeAvatar = (e) => {
     const formData = new FormData();

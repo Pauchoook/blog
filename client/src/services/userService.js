@@ -15,13 +15,6 @@ export const userApi = createApi({
       query: (id) => ({
         url: `/user/${id}`
       })
-    }),
-    updateUser: build.mutation({
-      query: (user) => ({
-        url: '/user',
-        method: 'PUT',
-        body: user
-      })
     })
   })
 })

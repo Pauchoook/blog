@@ -1,19 +1,19 @@
 import React from 'react';
 import { useState } from 'react';
-import avatarImg from '../../assets/avatar.jpg';
 import iconSend from '../../assets/send.svg';
 import { commentApi } from '../../services/commentService';
 
-export const CommentSend = ({ postId, userId }) => {
+export const CommentSend = ({ postId, user }) => {
   const [value, setValue] = useState('');
   const [createComment, {}] = commentApi.useCreateCommentMutation();
+  const avatar = 'http://localhost:5000/' + user.avatar;
 
   const handlerCreateComment = () => {
     if (value) {
       const comment = {
         comment: value,
         postId,
-        userId,
+        userId: user.id,
       };
       createComment(comment);
       setValue('');
@@ -22,7 +22,7 @@ export const CommentSend = ({ postId, userId }) => {
 
   return (
     <div className="comments__send">
-      <img src={avatarImg} className="comments__send-avatar" />
+      <img src={avatar} className="comments__send-avatar" />
       <input
         value={value}
         onChange={(e) => setValue(e.target.value)}

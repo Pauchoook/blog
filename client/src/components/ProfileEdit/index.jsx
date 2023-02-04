@@ -12,8 +12,6 @@ export const ProfileEdit = ({ user }) => {
     handleSubmit,
   } = useForm();
 
-  const date = user.date ? user.date.slice(0, 10).split('-').reverse().join('.') : '';
-
   const handlerUpdateUser = (data) => {
     if (isValid) {
       dispatch(updateUser({ ...data, id: user.id }));
