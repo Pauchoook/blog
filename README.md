@@ -10,5 +10,5 @@ npm run dev
 ## Запуск клиента
 
 ```
-<npm start>
+npm start
 ```
